@@ -1,5 +1,7 @@
 # Azusa-v2.0-26.2
 
+**简体中文** | [English](README_EN.md)
+
 ![icon](icon.png)
 
 > Minecraft **26.2** + Fabric **0.19.5** 客户端整合包 · 作者 **sd_dt**
