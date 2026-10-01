@@ -30,7 +30,7 @@ found on Modrinth** (self-made, community re-builds, or released elsewhere) — 
 
 | Mod | What it does |
 |---|---|
-| **`ModernUI`** (self-compiled) | Unofficial 26.2 port of Modern UI. The build shipped here **patches the "can only blur once per frame" crash** that the stock build hits when opening certain screens. |
+| **`ModernUI`** (self-compiled 3.13.7.6) | Unofficial 26.2 port of Modern UI. This build **patches the "can only blur once per frame" crash**, the **lost `§` color-code parsing** (letter codes like `§c` were dropped, so text meant to be red showed white), and the **in-world text (signs/nametags) rendering pipeline**. |
 | **`tweakermore`** (community fix) | masa's TweakerMore: a huge collection of client tweaks (info lines, XP-bar locator points, enchantment level display, pass-through interaction, fly-speed increments, happy-ghast riding, …) plus the schematic material tool. |
 | **`screenshot_viewer`** (fixed build) | Browse and manage screenshots **in-game**, no need to leave the game. |
 | **`rtssfix`** | Fixes the OpenGL timer-query crash caused by **RTSS / MSI Afterburner injection**, and stabilises FPS / frame-time display. |
