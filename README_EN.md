@@ -6,7 +6,7 @@
 
 Install: import `Azusa-v2.0-26.2.mrpack` with Modrinth App / PCL / HMCL (see Releases).
 
-**127 mods** in this pack come from Modrinth (their project pages describe them). The other **16 mods cannot be
+**125 mods** in this pack come from Modrinth (their project pages describe them). The other **18 mods cannot be
 found on Modrinth** (self-made, community re-builds, or released elsewhere) — they are documented below.
 
 ---
@@ -19,6 +19,7 @@ found on Modrinth** (self-made, community re-builds, or released elsewhere) — 
 |---|---|
 | **`azusa-safeshutdown`** | **Fixes the crash on every game exit.** Two root causes: ① `TextureManager.close()` threw `ConcurrentModificationException` when another mod/thread touched the texture map during shutdown → now it **takes a snapshot first and closes from it**; ② `TextureManager.tick()` still ran after the GL context was destroyed, causing a native `No context is current` crash → it now **skips the tick once the context is gone**. |
 | **`litematica-printer-EMT-Azusa`** | **A rework of the litematica printer** (based on [MoMortis/litematica-printer-EMT](https://github.com/MoMortis/litematica-printer-EMT), AGPL-3.0, full source included). Added/fixed: spherical placing & mining, **plane-unbounded mining** (no longer limited by the schematic selection), a bedrock-breaking tab with its own bedrock logic, **improved fluid clearing** (simple mode auto-scans nearby water sources → places the fill block → after the whole area is covered it **auto-switches to a pickaxe** and mines cell by cell), **automatic tool switching** (with durability protection, and it can **fetch a tool from a shulker box**), packet rate limiting (auto cap / reset button), sign-placement orientation fix, HUD work status, ice-for-water optimisation, offhand placing, and extra-block protection for glass. Source: <https://github.com/sd-dt/litematica-printer-EMT-Azusa> |
+| **`bf1-nametag-hider`** | **Hides player nametags together with "Better F1 Reborn".** Press F1 to cycle: on the **second** state (HUD + held item hidden) player nametags disappear too; the first state (HUD only) keeps them, the third restores everything. The injection point is `AvatarRenderer.submitNameDisplay` — in 26.2 the player renderer **overrides that method itself** without calling `super`, so an injection on the parent `EntityRenderer` is **silently bypassed** (not a single warning in the log). That is exactly why other "can't toggle player nametags" mods break. This one only affects players, never mob/entity nametags. |
 
 ### Self-made resource pack
 
@@ -30,7 +31,8 @@ found on Modrinth** (self-made, community re-builds, or released elsewhere) — 
 
 | Mod | What it does |
 |---|---|
-| **`ModernUI`** (self-compiled 3.13.7.6) | Unofficial 26.2 port of Modern UI. This build **patches the "can only blur once per frame" crash**, the **lost `§` color-code parsing** (letter codes like `§c` were dropped, so text meant to be red showed white), and the **in-world text (signs/nametags) rendering pipeline**. |
+| **`emi`** (local build) | Item and recipe viewer (EMI). The copy in this pack is a **local build** whose file hash differs from the version published on Modrinth, so it ships inside the pack instead of using an online direct link. |
+| **`ModernUI`** (self-compiled 3.13.7.13) | Unofficial 26.2 port of Modern UI. This build **patches the "can only blur once per frame" crash**, the **lost `§` color-code parsing** (letter codes like `§c` were dropped, so text meant to be red showed white), and the **in-world text (signs/nametags) rendering pipeline**. |
 | **`tweakermore`** (community fix) | masa's TweakerMore: a huge collection of client tweaks (info lines, XP-bar locator points, enchantment level display, pass-through interaction, fly-speed increments, happy-ghast riding, …) plus the schematic material tool. |
 | **`screenshot_viewer`** (fixed build) | Browse and manage screenshots **in-game**, no need to leave the game. |
 | **`rtssfix`** | Fixes the OpenGL timer-query crash caused by **RTSS / MSI Afterburner injection**, and stabilises FPS / frame-time display. |
