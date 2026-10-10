@@ -1,12 +1,13 @@
-# Azusa-v2.0-26.2
+# Azusa 26.2
 
 ![icon](icon.png)
 
 > A client-side Minecraft **26.2** modpack on Fabric **0.19.5** · by **sd_dt**
 
-Install: import `Azusa-v2.0-26.2.mrpack` with Modrinth App / PCL / HMCL (see Releases).
+Install: import the `.mrpack` from Releases with Modrinth App / PCL / HMCL (the latest is `Azusa-v2.2-26.2.mrpack`;
+older versions: <https://github.com/sd-dt/Azusa-v2.0-26.2/releases>).
 
-**125 mods** in this pack come from Modrinth (their project pages describe them). The other **18 mods cannot be
+**125 mods** in this pack come from Modrinth (their project pages describe them). The other **19 mods cannot be
 found on Modrinth** (self-made, community re-builds, or released elsewhere) — they are documented below.
 
 ---
@@ -20,6 +21,7 @@ found on Modrinth** (self-made, community re-builds, or released elsewhere) — 
 | **`azusa-safeshutdown`** | **Fixes the crash on every game exit.** Two root causes: ① `TextureManager.close()` threw `ConcurrentModificationException` when another mod/thread touched the texture map during shutdown → now it **takes a snapshot first and closes from it**; ② `TextureManager.tick()` still ran after the GL context was destroyed, causing a native `No context is current` crash → it now **skips the tick once the context is gone**. |
 | **`litematica-printer-EMT-Azusa`** | **A rework of the litematica printer** (based on [MoMortis/litematica-printer-EMT](https://github.com/MoMortis/litematica-printer-EMT), AGPL-3.0, full source included). Added/fixed: spherical placing & mining, **plane-unbounded mining** (no longer limited by the schematic selection), a bedrock-breaking tab with its own bedrock logic, **improved fluid clearing** (simple mode auto-scans nearby water sources → places the fill block → after the whole area is covered it **auto-switches to a pickaxe** and mines cell by cell), **automatic tool switching** (with durability protection, and it can **fetch a tool from a shulker box**), packet rate limiting (auto cap / reset button), sign-placement orientation fix, HUD work status, ice-for-water optimisation, offhand placing, and extra-block protection for glass. Source: <https://github.com/sd-dt/litematica-printer-EMT-Azusa> |
 | **`bf1-nametag-hider`** | **Hides player nametags together with "Better F1 Reborn".** Press F1 to cycle: on the **second** state (HUD + held item hidden) player nametags disappear too; the first state (HUD only) keeps them, the third restores everything. The injection point is `AvatarRenderer.submitNameDisplay` — in 26.2 the player renderer **overrides that method itself** without calling `super`, so an injection on the parent `EntityRenderer` is **silently bypassed** (not a single warning in the log). That is exactly why other "can't toggle player nametags" mods break. This one only affects players, never mob/entity nametags. |
+| **`screencopy-safe`** | **Fixes a hard crash of the whole game when `screencopy` copies a screenshot.** Upstream `screencopy` writes to the system clipboard through Rust's `arboard`; when another program holds the clipboard (IME, GameViewer-style streaming/remote-desktop tools, clipboard managers, …) `arboard` panics on an `unwrap()`, and that panic crossing the JNI boundary **kills the JVM outright** — you get an `hs_err_pid*.log`, **no** matching `crash-reports/` entry, and error code `EXCEPTION_UNCAUGHT_CXX_EXCEPTION`. This mod **replaces that native call with the JDK's built-in AWT clipboard** (with 6 back-off retries) and throws a **catchable `IllegalStateException`** instead — `screencopy` already catches it and shows its "copy failed" toast, so the game stays alive. `screencopy` itself is **not modified at all** and behaves the same (trade-off: the clipboard image is owned by the MC process, so it **may go stale once MC exits**). |
 
 ### Self-made resource pack
 
