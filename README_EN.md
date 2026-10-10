@@ -4,7 +4,7 @@
 
 > A client-side Minecraft **26.2** modpack on Fabric **0.19.5** · by **sd_dt**
 
-Install: import the `.mrpack` from Releases with Modrinth App / PCL / HMCL (the latest is `Azusa-v2.2-26.2.mrpack`;
+Install: import the `.mrpack` from Releases with Modrinth App / PCL / HMCL (the latest is `Azusa-v2.1.1-26.2.mrpack`;
 older versions: <https://github.com/sd-dt/Azusa-v2.0-26.2/releases>).
 
 **125 mods** in this pack come from Modrinth (their project pages describe them). The other **19 mods cannot be
