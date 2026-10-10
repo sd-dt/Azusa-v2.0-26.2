@@ -1,4 +1,4 @@
-# Azusa-v2.0-26.2
+# Azusa 26.2
 
 **简体中文** | [English](README_EN.md)
 
@@ -6,14 +6,15 @@
 
 > Minecraft **26.2** + Fabric **0.19.5** 客户端整合包 · 作者 **sd_dt**
 
-安装：用 Modrinth App / PCL / HMCL 等启动器导入 `Azusa-v2.0-26.2.mrpack`（见 Releases）。
+安装：用 Modrinth App / PCL / HMCL 等启动器导入 Releases 里的 `.mrpack`（最新为 `Azusa-v2.2-26.2.mrpack`；
+历史版本见 <https://github.com/sd-dt/Azusa-v2.0-26.2/releases>）。
 
-整合包内 **125 个模组来自 Modrinth**（可在对应项目页查到用途），其余 **18 个无法在 Modrinth 上找到**
+整合包内 **125 个模组来自 Modrinth**（可在对应项目页查到用途），其余 **19 个无法在 Modrinth 上找到**
 （自制、社区改版或非 Modrinth 发布），下面逐个说明它们的功能。
 
 ---
 
-## 📌 不在 Modrinth 上的模组（随包提供，共 18 个）
+## 📌 不在 Modrinth 上的模组（随包提供，共 19 个）
 
 ### 自制
 
@@ -22,6 +23,7 @@
 | **`azusa-safeshutdown`** | **修复退出游戏必崩的问题**。两处根因：① `TextureManager.close()` 关闭纹理时若有其它线程/模组同时改动纹理表，会抛 `ConcurrentModificationException` → 改为**先快照再逐个关闭**；② GL 上下文已销毁后仍执行 `TextureManager.tick()`，触发 native 层 `No context is current` 崩溃 → 现在**检测到上下文消失就跳过 tick**。 |
 | **`litematica-printer-EMT-Azusa`** | **投影打印机改版**（基于 [MoMortis/litematica-printer-EMT](https://github.com/MoMortis/litematica-printer-EMT)，AGPL-3.0，附完整源码）。新增/修复：球形放置与球形挖掘、**平面无边界挖掘**（不受投影选区限制）、破基岩分页与自研基岩破坏、**更好的排流体**（简单模式自动扫描附近水源 → 铺填充方块 → 整片盖住后自动切镐逐格挖掉）、**自动工具切换**（含耐久保护、可用完从**潜影盒取工具**）、数据包限流（自动上限/重置）、告示牌放置朝向修正、HUD 工作状态、冰水转换优化、副手放置、玻璃等额外方块保护。源码仓库：<https://github.com/sd-dt/litematica-printer-EMT-Azusa> |
 | **`bf1-nametag-hider`** | **让玩家名牌跟着「更好的F1重制版」一起隐藏**。按 F1 循环到**第二次**（隐藏 HUD + 隐藏手部物品）时，玩家名牌同步消失；第一次（只隐藏 HUD）名牌仍在，第三次恢复。注入点是 `AvatarRenderer.submitNameDisplay` —— 26.2 里玩家渲染器**自己 override 了**这个方法且不调 `super`，所以打在父类 `EntityRenderer` 上的注入会被**静默绕过**（日志里一句报错都没有），这也是同类「切不掉玩家名牌」模组失效的根因。本实现只作用于玩家，不影响生物与其它实体名牌。 |
+| **`screencopy-safe`** | **修掉 `screencopy` 复制截图时整个游戏「硬死」的问题**。上游 `screencopy` 通过 Rust 的 `arboard` 写系统剪贴板；一旦剪贴板被别的程序占用（输入法、GameViewer 等串流/远控工具、剪贴板管理器），`arboard` 内部 `unwrap()` 会 panic，而 panic 跨过 JNI 边界后**直接把 JVM 打死** —— 只留下 `hs_err_pid*.log`，`crash-reports/` 里没有对应报告，错误码是 `EXCEPTION_UNCAUGHT_CXX_EXCEPTION`。本模组把这条原生调用**换成 JDK 自带的 AWT 剪贴板**（带 6 次退避重试），写入失败时改为抛**可被捕获的 `IllegalStateException`** —— `screencopy` 本来就会 catch 它并弹「复制失败」提示，于是游戏不再退出。`screencopy` 本体一行未改、功能不变（代价：剪贴板内容由 MC 进程持有，**MC 关闭后该图片可能失效**）。 |
 
 ### 自制资源包
 
