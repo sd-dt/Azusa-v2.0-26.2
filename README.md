@@ -6,7 +6,7 @@
 
 > Minecraft **26.2** + Fabric **0.19.5** 客户端整合包 · 作者 **sd_dt**
 
-安装：用 Modrinth App / PCL / HMCL 等启动器导入 Releases 里的 `.mrpack`（最新为 `Azusa-v2.2-26.2.mrpack`；
+安装：用 Modrinth App / PCL / HMCL 等启动器导入 Releases 里的 `.mrpack`（最新为 `Azusa-v2.1.1-26.2.mrpack`；
 历史版本见 <https://github.com/sd-dt/Azusa-v2.0-26.2/releases>）。
 
 整合包内 **125 个模组来自 Modrinth**（可在对应项目页查到用途），其余 **19 个无法在 Modrinth 上找到**
